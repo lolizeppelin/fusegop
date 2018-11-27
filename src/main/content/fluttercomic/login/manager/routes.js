@@ -1,5 +1,8 @@
 import {authRoles} from 'auth';
-import Manager from './login';
+
+
+import {FuseLoadable} from '@fuse';
+
 import  {ROUTEPREFIX} from '../../config';
 
  const Routes = {
@@ -28,7 +31,7 @@ import  {ROUTEPREFIX} from '../../config';
     routes  : [
         {
             path     : `${ROUTEPREFIX}/managers/login`,
-            component: Manager
+            component: FuseLoadable({loader: () => import('./login')})
         }
     ]
 };

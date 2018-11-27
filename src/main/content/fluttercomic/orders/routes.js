@@ -1,6 +1,7 @@
 import {authRoles} from 'auth';
 
-import Order from './list';
+import {FuseLoadable} from '@fuse';
+
 
 import {ROUTEPREFIX} from "../config";
 
@@ -9,13 +10,13 @@ const OrderRoute = {
     routes  : [
         {
             path     : `${ROUTEPREFIX}/orders`,                   // index
-            component: OrderList
+            component: FuseLoadable({loader: () => import('./list')})
         },
         {
             path     : `${ROUTEPREFIX}/orders/:oid`,              // show
-            component: OrderShow
+            component: FuseLoadable({loader: () => import('./show')})
         },
     ]
 };
 
-export default Routes;
+export default OrderRoute;

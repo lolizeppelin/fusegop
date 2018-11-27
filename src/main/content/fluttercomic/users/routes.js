@@ -1,7 +1,7 @@
 import {authRoles} from 'auth';
 
-import UserList from './list/Users';
-import UserShow from './show/User';
+import {FuseLoadable} from '@fuse';
+
 
 import {ROUTEPREFIX} from "../config";
 
@@ -10,11 +10,11 @@ const UserRoute = {
     routes  : [
         {
             path     : `${ROUTEPREFIX}/users/:uid`,              // show
-            component: UserShow
+            component: FuseLoadable({loader: () => import('./show/User')})
         },
         {
             path     : `${ROUTEPREFIX}/users`,                   // index
-            component: UserList
+            component: FuseLoadable({loader: () => import('./list/Users')})
         },
     ]
 };

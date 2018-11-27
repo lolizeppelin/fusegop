@@ -1,8 +1,7 @@
 import {authRoles} from 'auth';
 
-import ComicList from './list/Comics';
-import ComicCreate from './list/NewComic';
-import ComicShow from './show/Comic';
+import {FuseLoadable} from '@fuse';
+
 
 
 import {ROUTEPREFIX} from "../config";
@@ -12,20 +11,16 @@ const ComicRoute = {
     routes  : [
         {
             path     : `${ROUTEPREFIX}/comic`,                             // create
-            component: ComicCreate
+            component: FuseLoadable({loader: () => import('./list/NewComic')})
         },
         {
             path     : `${ROUTEPREFIX}/comics/:cid`,                       // show
-            component: ComicShow
+            component: FuseLoadable({loader: () => import('./show/Comic')})
         },
         {
             path     : `${ROUTEPREFIX}/comics`,                             // index
-            component: ComicList
+            component: FuseLoadable({loader: () => import('./list/Comics')})
         },
-        // {
-        //     path     : `${ROUTEPREFIX}/comics/:cid/chapters/:chapter`,    // show comic chapter
-        //     component: ChapterShow
-        // },
     ]
 };
 
