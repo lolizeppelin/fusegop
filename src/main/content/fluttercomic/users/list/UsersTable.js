@@ -12,11 +12,6 @@ import * as FlutterComic from "store/actions";
 import {ROUTEPREFIX} from "../../config";
 import { indexUsers } from '../http'
 
-import reducer from "../../store/reducers";
-import withReducer from 'store/withReducer';
-
-
-
 
 const styles = theme => ({
     root: {}
@@ -281,4 +276,4 @@ function mapDispatchToProps(dispatch)
 }
 
 
-export default withReducer('searchComponents', reducer)(withStyles(styles, {withTheme: true})(withRouter(connect(mapStateToProps, mapDispatchToProps)(UsersTable))));
+export default withStyles(styles, {withTheme: true})(withRouter(connect(mapStateToProps, mapDispatchToProps)(UsersTable)));

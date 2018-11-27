@@ -8,9 +8,6 @@ import classNames from 'classnames';
 
 import * as FlutterComicActions from '../store/actions';
 
-import withReducer from 'store/withReducer';
-import reducer from '../store/reducers';
-
 
 const styles = theme => ({
     root: {}
@@ -87,4 +84,4 @@ function mapDispatchToProps(dispatch)
 
 
 
-export default withReducer('searchComponents', reducer)(withStyles(styles, {withTheme: true})(connect(mapStateToProps, mapDispatchToProps)(SearchHeader)));
+export default withStyles(styles, {withTheme: true})(connect(mapStateToProps, mapDispatchToProps)(SearchHeader));
