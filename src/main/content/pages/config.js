@@ -1,0 +1,8 @@
+const GOPCONFIG = window.GOPCONFIG;
+
+
+const ROUTEPREFIX = `${GOPCONFIG.BASEPATH}/pages`;
+
+
+export {ROUTEPREFIX}
+
