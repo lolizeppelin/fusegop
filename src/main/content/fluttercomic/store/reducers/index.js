@@ -8,6 +8,6 @@ const reducer = combineReducers({
 });
 
 
-injectReducer(key, reducer);
+injectReducer('flutterComic', reducer);
 
 export default reducer;

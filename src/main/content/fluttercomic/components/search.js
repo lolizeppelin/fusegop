@@ -64,11 +64,11 @@ class SearchHeader extends Component {
 }
 
 
-function mapStateToProps({searchComponents})
+function mapStateToProps({flutterComic})
 {
 
     return {
-        searchText: searchComponents.search.text,
+        searchText: flutterComic.search.text,
     }
 }
 

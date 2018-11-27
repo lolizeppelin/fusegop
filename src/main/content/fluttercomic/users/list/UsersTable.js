@@ -259,11 +259,11 @@ class UsersTable extends Component {
 
 
 
-function mapStateToProps({auth, searchComponents})
+function mapStateToProps({auth, flutterComic})
 {
     return {
         manager     : auth.user,
-        searchText  : searchComponents.search.text,
+        searchText  : flutterComic.search.text,
     }
 }
 
