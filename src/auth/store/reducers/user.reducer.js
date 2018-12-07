@@ -15,6 +15,27 @@ const initialStateDefault = {
     }
 };
 
+const initialStateTest = {
+
+
+    from:   'fernet',
+
+    role:   'fluttercomic0manager',
+    uid:    1,
+    name:   'admin',
+    token:  'gop-auth-c3e0e126577c4aaa96f92d8fe100a221',
+
+    data: {
+        'displayName': '',
+        'photoURL'   : 'assets/images/avatars/anyone.jpg',
+        'email'      : '',
+        /* ext data for gop*/
+        'ext'        : {},
+        shortcuts    : []
+    }
+};
+
+
 const initialState = {
 
     from:   'fernet',
@@ -37,7 +58,7 @@ const initialState = {
 };
 
 
-const user = function (state = initialState, action) {
+const user = function (state = initialStateTest, action) {
     switch ( action.type )
     {
         case Actions.SET_USER_DATA:

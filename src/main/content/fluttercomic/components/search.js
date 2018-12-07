@@ -8,7 +8,6 @@ import classNames from 'classnames';
 
 import * as FlutterComicActions from '../store/actions';
 
-
 const styles = theme => ({
     root: {}
 });
@@ -30,9 +29,15 @@ class SearchHeader extends Component {
                         <Icon className="text-32 mr-12">{icon}</Icon>
                     </FuseAnimate>
                     <FuseAnimate animation="transition.slideLeftIn" delay={300}>
-                        <Typography variant="title">{title}</Typography>
+                        <Typography>{title}</Typography>
                     </FuseAnimate>
                 </div>
+
+                {this.props.front &&
+                    <div style={{marginLeft: 16}}>
+                        {this.props.front()}
+                    </div>
+                }
 
                 <div className="flex flex-1 items-center justify-center px-16">
 
@@ -58,6 +63,14 @@ class SearchHeader extends Component {
                     </MuiThemeProvider>
 
                 </div>
+
+                {this.props.back &&
+                <div style={{marginLeft: 16}}>
+                    {this.props.back()}
+                </div>
+                }
+
+
             </div>
         );
     }

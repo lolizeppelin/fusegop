@@ -53,7 +53,8 @@
         "typeface-muli": "0.0.54",
         "velocity-react": "1.4.1",
         "jsonwebtoken": "8.4.0",
-        "crypto-js": "^3.1.9-1"
+        "crypto-js": "^3.1.9-1",
+        "long": "^4.0.0"
     },
     "scripts": {
         "start": "yarn run build-css-helpers && cross-env NODE_PATH=src react-scripts start",

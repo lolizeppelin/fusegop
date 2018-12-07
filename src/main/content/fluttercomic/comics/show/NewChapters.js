@@ -21,7 +21,6 @@ class NewChapter extends Component {
 
 
     handleChange = (event) => {
-        console.log(event.target.value);
         this.setState({type: event.target.value});
     };
 

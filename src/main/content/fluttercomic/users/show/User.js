@@ -1,20 +1,24 @@
 import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import {withStyles} from '@material-ui/core/styles';
-import {FuseAnimate, FusePageCarded} from '@fuse';
-import {Icon, Tab, Tabs, Typography, CircularProgress} from '@material-ui/core';
+import {FuseAnimate, FusePageCarded, FuseSelectedTheme} from '@fuse';
+import {Icon, Tab, Tabs, Typography,
+    CircularProgress, Paper, Input, MuiThemeProvider} from '@material-ui/core';
 import green from '@material-ui/core/colors/green';
 import {Link, withRouter} from 'react-router-dom';
 import connect from 'react-redux/es/connect/connect';
 
 
 import * as FuseActions from "store/actions";
-import {ROUTEPREFIX, CDNURL} from "../../config";
+import {ROUTEPREFIX} from "../../config";
 
 
 import UserBooks from './Books';
 import UserOwns from './Owns';
+import Paylog from './Paylog';
+import RechargeLog from './RechargeLog';
 import * as usersRequest from '../http';
+import * as FlutterComicActions from "../../store/actions";
 
 const styles = theme => ({
     root          : {
@@ -46,10 +50,8 @@ class User extends Component {
     componentDidMount()
     {
         const manager = this.props.manager;
-        console.log(this.props.match.params);
         usersRequest.showUser(this.state.uid, manager.token,
             (result) => {
-                console.log(result);
                 const user = result.data[0];
                 this.setState({ user, loading: false  })
             },
@@ -58,13 +60,20 @@ class User extends Component {
             })
     }
 
+    componentWillUnmount () {
+        this.props.cleanSearchText();
+    }
+
+
+
     handleChangeTab = (event, tabValue) => {
+        this.props.cleanSearchText();
         this.setState({tabValue});
     };
 
     render()
     {
-        const {classes} = this.props;
+        const {classes, searchText, setSearchText} = this.props;
         const {tabValue, user, loading} = this.state;
 
         if (loading) return (
@@ -94,7 +103,7 @@ class User extends Component {
                                 <div className="flex flex-col min-w-0 items-center sm:items-start">
 
                                     <FuseAnimate animation="transition.slideLeftIn" delay={300}>
-                                        <Typography variant="title" className="truncate">
+                                        <Typography className="truncate">
                                             {'用户名: ' + user.name}
                                         </Typography>
                                     </FuseAnimate>
@@ -102,6 +111,34 @@ class User extends Component {
                                 </div>
 
                             </div>
+
+                            { tabValue >= 4 && (
+                                <div className="flex flex-1 items-center justify-center px-16">
+
+                                    <MuiThemeProvider theme={FuseSelectedTheme}>
+                                        <FuseAnimate animation="transition.slideDownIn" delay={300}>
+                                            <Paper className="flex p-4 items-center w-full max-w-512 px-8 py-4" elevation={1}>
+
+                                                <Icon className="mr-8" color="action">search</Icon>
+
+                                                <Input
+                                                    placeholder="Search"
+                                                    className="flex flex-1"
+                                                    disableUnderline
+                                                    fullWidth
+                                                    value={searchText}
+                                                    inputProps={{
+                                                        'aria-label': 'Search'
+                                                    }}
+                                                    onChange={setSearchText}
+                                                />
+                                            </Paper>
+                                        </FuseAnimate>
+                                    </MuiThemeProvider>
+
+                                </div>
+                            ) }
+
                         </div>
                     )
                 }
@@ -119,11 +156,13 @@ class User extends Component {
                         <Tab className="h-64 normal-case" label="用户收藏"/>
                         <Tab className="h-64 normal-case" label="用户已购"/>
                         <Tab className="h-64 normal-case" label="购买记录"/>
+                        <Tab className="h-64 normal-case" label="充值记录"/>
+                        <Tab className="h-64 normal-case" label="订单记录"/>
                     </Tabs>
                 }
                 content={
                     user && (
-                        <div className="p-24 max-w-2xl w-full">
+                        <div className="p-24 max-w-3xl w-full">
                             {tabValue === 0 &&
                             (
                                 <div>
@@ -140,6 +179,7 @@ class User extends Component {
                                                 <tr>
                                                     <th>用户名</th>
                                                     <th>用户ID</th>
+                                                    <th>优惠</th>
                                                     <th>代币</th>
                                                     <th>赠币</th>
                                                     <th>状态</th>
@@ -160,6 +200,9 @@ class User extends Component {
                                                         <Typography className="truncate">{user.uid}</Typography>
                                                     </td>
                                                     <td>
+                                                        <Typography className="truncate">{user.offer}</Typography>
+                                                    </td>
+                                                    <td>
                                                         <Typography className="truncate">{user.coins}</Typography>
                                                     </td>
                                                     <td>
@@ -177,11 +220,12 @@ class User extends Component {
 
                                         </div>
                                     </div>
-
                                 </div>
                             )}
                             {tabValue === 1 &&  <UserBooks user={this.state.user} />}
                             {tabValue === 2 && <UserOwns user={this.state.user} />}
+                            {tabValue === 3 && <Paylog user={this.state.user} />}
+                            {tabValue === 4 && <RechargeLog user={this.state.user} />}
                         </div>
                     )
                 }
@@ -192,9 +236,10 @@ class User extends Component {
 }
 
 
-function mapStateToProps({auth})
+function mapStateToProps({auth, flutterComic})
 {
     return {
+        searchText: flutterComic.search.text,
         manager: auth.user
     }
 }
@@ -204,6 +249,8 @@ function mapDispatchToProps(dispatch)
 {
     return bindActionCreators({
         showMessage: FuseActions.showMessage,
+        setSearchText: FlutterComicActions.setFlutterComicSearchText,
+        cleanSearchText: FlutterComicActions.cleanFlutterComicSearchText
     }, dispatch);
 }
 

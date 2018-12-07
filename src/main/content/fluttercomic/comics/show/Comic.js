@@ -176,7 +176,7 @@ class Comic extends Component {
                                 <div className="flex flex-col min-w-0 items-center sm:items-start">
 
                                     <FuseAnimate animation="transition.slideLeftIn" delay={300}>
-                                        <Typography variant="title" className="truncate">
+                                        <Typography className="truncate">
                                             {'漫画: ' + comic.name}
                                         </Typography>
                                     </FuseAnimate>

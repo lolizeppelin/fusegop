@@ -70,7 +70,6 @@ class WebsokcetUpdate extends Component {
             },
             timeout: file.timeout,
         };
-        console.log(body);
         comicsRequest.createChapters(comic.cid, chapter, manager.token, body,
             (result) => {
                 const uri = result.data[0].worker;

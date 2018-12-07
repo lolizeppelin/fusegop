@@ -11,7 +11,7 @@ import {Button, MenuItem,
 
 import Formsy from 'formsy-react';
 
-import {TextFieldFormsy, CheckboxFormsy, RadioGroupFormsy,
+import {TextFieldFormsy, CheckboxFormsy,
     SelectFormsy, FusePageCarded, FuseAnimate} from '@fuse';
 
 import * as FuseActions from "store/actions";
@@ -79,7 +79,7 @@ class NewComic extends Component {
 
                             <div className="flex flex-col min-w-0 items-center sm:items-start mt-24">
                                 <FuseAnimate animation="transition.slideLeftIn" delay={300}>
-                                    <Typography variant="title" className="truncate">
+                                    <Typography className="truncate">
                                         添加新漫画
                                     </Typography>
                                 </FuseAnimate>

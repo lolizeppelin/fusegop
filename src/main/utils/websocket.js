@@ -54,7 +54,6 @@ function sendfile(uri, blob, cbProgress) {
                 if (err) reject(err); else resolve(msg);
               });
           } catch (err) {
-            console.log(err);
             const error = new Error('发送或读取文件失败');
             error.err = err;
             reject(error);

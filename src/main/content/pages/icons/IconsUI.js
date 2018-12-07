@@ -26,6 +26,7 @@ class IconsUI extends Component {
 
     render()
     {
+
         const {classes} = this.props;
         const {data, searchText} = this.state;
         const icons = searchText.length > 0 ? data.filter(item => {
@@ -48,7 +49,7 @@ class IconsUI extends Component {
                     <div className="flex flex-1 items-center justify-between p-24">
 
                         <FuseAnimate>
-                            <Typography variant="title">Icons</Typography>
+                            <Typography>Icons</Typography>
                         </FuseAnimate>
 
                         <Button

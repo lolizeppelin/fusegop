@@ -28,10 +28,10 @@ const styles = theme => ({
     },
 });
 
-class UserOwns extends Component {
+class Paylog extends Component {
 
     state = {
-        owns    : [],
+        logs    : [],
         loading : true,
     };
 
@@ -43,9 +43,9 @@ class UserOwns extends Component {
         if (user === null) {
             this.setState({ loading: false }, () => this.props.showMessage({ message: 'user is None' }))
         } else {
-            usersRequest.showUserOwns(user.uid, manager.token,
+            usersRequest.getUserPays(user.uid, manager.token,
                 (result) => {
-                    this.setState({ owns: result.data, loading: false  })
+                    this.setState({ logs: result.data, loading: false  })
                 },
                 (error) => {
                     this.setState({ loading: false }, () => this.props.showMessage({ message: error.message }))
@@ -57,7 +57,7 @@ class UserOwns extends Component {
 
     render()
     {
-        const {classes} = this.props;
+        const {classes, user} = this.props;
         const {loading} = this.state;
 
         if (loading) return (
@@ -71,21 +71,45 @@ class UserOwns extends Component {
                 <thead>
                 <tr>
                     <th>漫画ID</th>
-                    <th>封面</th>
-                    <th>已购章节</th>
+                    <th>购买章节</th>
+                    <th>购买消耗</th>
+                    <th>购买优惠</th>
+                    <th>使用金额</th>
+                    <th>使用代币</th>
+                    <th>剩余金额</th>
+                    <th>剩余代币</th>
+                    <th>购买时间</th>
                 </tr>
                 </thead>
                 <tbody>
-                {this.state.owns.map(own => (
-                    <tr key={own.cid}>
+                {this.state.logs.map((paylog, index) => (
+                    <tr key={`paylog-${index}`}>
                         <td className="w-64">
-                            {own.cid}
-                        </td>
-                        <td className="w-80 self-center">
-                            <img className="product-image" src={`${CDNURL}/${own.cid}/main.${own.ext}`} alt="product"/>
+                            {paylog.cid}
                         </td>
                         <td>
-                            <Typography className="truncate">{own.chapter}</Typography>
+                            <Typography className="truncate">{paylog.chapter}</Typography>
+                        </td>
+                        <td>
+                            <Typography className="truncate">{paylog.value}</Typography>
+                        </td>
+                        <td>
+                            <Typography className="truncate">{paylog.offer}</Typography>
+                        </td>
+                        <td>
+                            <Typography className="truncate">{paylog.coin}</Typography>
+                        </td>
+                        <td>
+                            <Typography className="truncate">{paylog.gift}</Typography>
+                        </td>
+                        <td>
+                            <Typography className="truncate">{paylog.coins}</Typography>
+                        </td>
+                        <td>
+                            <Typography className="truncate">{paylog.gifts}</Typography>
+                        </td>
+                        <td>
+                            <Typography className="truncate">{paylog.time}</Typography>
                         </td>
                     </tr>
                 ))}
@@ -114,4 +138,4 @@ function mapDispatchToProps(dispatch)
 }
 
 
-export default withStyles(styles, {withTheme: true})(connect(mapStateToProps, mapDispatchToProps)(UserOwns));
+export default withStyles(styles, {withTheme: true})(connect(mapStateToProps, mapDispatchToProps)(Paylog));

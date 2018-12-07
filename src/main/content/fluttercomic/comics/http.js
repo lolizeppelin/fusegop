@@ -23,7 +23,6 @@ function indexComics(successCallback, failCallback) {
             successCallback(result);
         })
         .catch((error) => {
-            console.log(error);
             failCallback(error);
         });
 }
@@ -38,7 +37,6 @@ function createComics(token, body, successCallback, failCallback) {
             successCallback(result);
         })
         .catch((error) => {
-            console.log(error);
             failCallback(error);
         });
 }
@@ -52,7 +50,6 @@ function coverComics(cid, token, body, successCallback, failCallback) {
             successCallback(result);
         })
         .catch((error) => {
-            console.log(error);
             failCallback(error);
         });
 }
@@ -68,7 +65,6 @@ function createChapters(cid, chapter, token, body, successCallback, failCallback
             successCallback(result);
         })
         .catch((error) => {
-            console.log(error);
             failCallback(error);
         });
 }

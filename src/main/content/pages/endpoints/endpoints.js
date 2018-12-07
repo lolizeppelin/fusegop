@@ -69,7 +69,7 @@ class EndpointPage extends Component {
             <div className={classNames(classes.root, "flex flex-grow flex-no-shrink flex-col items-center")}>
 
                 <FuseAnimate>
-                    <Typography className="mt-44 sm:mt-88 sm:py-24 text-32 sm:text-40 font-300" color="inherit">登陆角色</Typography>
+                    <Typography className="mt-44 sm:mt-88 sm:py-24 text-32 sm:text-40 font-300" color="inherit">登陆页</Typography>
                 </FuseAnimate>
 
                 <div>
@@ -77,7 +77,7 @@ class EndpointPage extends Component {
                         className="flex flex-wrap w-full justify-center py-32 px-16"
                         enter={{
                             animation: "transition.slideRightBigIn",
-                            duration : 300
+                            duration : 1000
                         }}
                     >
                         <div className="w-224 h-224 p-16" key={this.state.endpoint + '-manager'}>
@@ -87,7 +87,7 @@ class EndpointPage extends Component {
                                 role="button"
                             >
                                 <Icon className="text-56">account_circle</Icon>
-                                <Typography className="text-16 font-300 text-center pt-16 px-32" color="inherit">管理员登陆</Typography>
+                                <Typography className="text-16 font-300 text-center pt-16 px-32" color="inherit">管理员</Typography>
                             </Link>
                         </div>
                         <div className="w-224 h-224 p-16" key={this.state.endpoint + '-client'}>
@@ -97,7 +97,7 @@ class EndpointPage extends Component {
                                 role="button"
                             >
                                 <Icon className="text-56">people</Icon>
-                                <Typography className="text-16 font-300 text-center pt-16 px-32" color="inherit">用户登陆</Typography>
+                                <Typography className="text-16 font-300 text-center pt-16 px-32" color="inherit">普通用户</Typography>
                             </Link>
                         </div>
                     </FuseAnimateGroup>

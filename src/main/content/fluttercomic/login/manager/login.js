@@ -125,7 +125,7 @@ class Login extends Component {
 
                         <CardContent className="flex flex-col items-center justify-center p-32 md:p-48 md:pt-128 ">
 
-                            <Typography variant="title" className="text-center md:w-full mb-48">管理员登陆</Typography>
+                            <Typography className="text-center md:w-full mb-48">管理员登陆</Typography>
 
                                 <div className={classes.login}>
                                     <Formsy

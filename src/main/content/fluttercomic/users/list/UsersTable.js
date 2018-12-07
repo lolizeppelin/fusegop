@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
-import {withStyles, Table, TableBody, TableCell, TablePagination, TableRow, Checkbox} from '@material-ui/core';
+import green from "@material-ui/core/colors/green";
+import {withStyles, CircularProgress} from '@material-ui/core';
 import {withRouter} from 'react-router-dom';
 import {FuseScrollbars, FuseUtils} from '@fuse';
 import connect from 'react-redux/es/connect/connect';
-import UsersTableHead from './UsersTableHead';
-import _ from 'lodash';
 
 import * as FlutterComic from "store/actions";
 
@@ -13,21 +12,84 @@ import {ROUTEPREFIX} from "../../config";
 import { indexUsers } from '../http'
 
 
+import SortableTables from '../../components/sortAbleTables';
+
+
+
 const styles = theme => ({
-    root: {}
+    root          : {
+        display   : 'flex',
+        alignItems: 'center'
+    },
+    fabProgress   : {
+        color   : green[500],
+        position: 'absolute',
+        top     : '50%',
+        left    : '50%',
+        zIndex  : 1
+    },
 });
+
+
+const columns = [
+    {
+        id            : 'uid',
+        numeric       : true,
+        disablePadding: true,
+        label         : '用户ID',
+        sort          : false
+    },
+    {
+        id            : 'name',
+        numeric       : false,
+        disablePadding: false,
+        label         : '用户名',
+        sort          : false
+    },
+    {
+        id            : 'offer',
+        numeric       : true,
+        disablePadding: false,
+        label         : '优惠额',
+        sort          : false
+    },
+    {
+        id            : 'coins',
+        numeric       : true,
+        disablePadding: false,
+        label         : '金币',
+        sort          : true
+    },
+    {
+        id            : 'gifts',
+        numeric       : true,
+        disablePadding: false,
+        label         : '代币',
+        sort          : true
+    },
+    {
+        id            : 'status',
+        numeric       : true,
+        disablePadding: false,
+        label         : '状态',
+        sort          : true
+    },
+    {
+        id            : 'regtime',
+        numeric       : true,
+        disablePadding: false,
+        label         : '注册时间',
+        sort          : true
+    }
+];
+
+
 
 class UsersTable extends Component {
     state = {
-        order      : 'asc',
-        orderBy    : 'id',
-        selected   : [],
-        data       : [],
-        users      : [],
-        page       : 0,
-        rowsPerPage: 10,
+        users       : [],
+        loading      : true,
     };
-
 
 
     componentDidMount()
@@ -35,235 +97,60 @@ class UsersTable extends Component {
         // this.props.getOrders();
         indexUsers(this.props.manager.token,
             (result) => {
-                console.log(result);
-                this.setState({ users: result.data })
+                this.setState({ users: result.data, loading: false})
             },
             (error) => {
                 this.props.showMessage({ message: error.message });
-                this.setState({ users: [] })
+                this.setState({ users: [], loading: false})
             });
     }
 
-    componentDidUpdate(prevProps, prevState)
-    {
-        if ( !_.isEqual(this.state.users, prevState.users) || !_.isEqual(this.props.searchText, prevProps.searchText) )
-        {
-            const data = this.getFilteredArray(this.state.users, this.props.searchText);
-            this.setState({data})
-        }
-    }
 
-    getFilteredArray = (data, searchText) => {
-        if ( searchText.length === 0 )
-        {
-            return data;
-        }
-        return FuseUtils.filterArrayByString(data, searchText);
-    };
+    render() {
 
-    handleRequestSort = (event, property) => {
-        const orderBy = property;
-        let order = 'desc';
+        const {classes} = this.props;
 
-        if ( this.state.orderBy === property && this.state.order === 'desc' )
-        {
-            order = 'asc';
-        }
-
-        this.setState({
-            order,
-            orderBy
-        });
-    };
-
-    handleSelectAllClick = event => {
-        if ( event.target.checked )
-        {
-            this.setState(state => ({selected: this.state.data.map(n => n.uid)}));
-            return;
-        }
-        this.setState({selected: []});
-    };
-
-    handleClick = (item) => {
-        this.props.history.push(`${ROUTEPREFIX}/users/${item.uid}`);
-        // this.props.history.goBack();
-    };
-
-    handleCheck = (event, id) => {
-        const {selected} = this.state;
-        const selectedIndex = selected.indexOf(id);
-        let newSelected = [];
-
-        if ( selectedIndex === -1 )
-        {
-            newSelected = newSelected.concat(selected, id);
-        }
-        else if ( selectedIndex === 0 )
-        {
-            newSelected = newSelected.concat(selected.slice(1));
-        }
-        else if ( selectedIndex === selected.length - 1 )
-        {
-            newSelected = newSelected.concat(selected.slice(0, -1));
-        }
-        else if ( selectedIndex > 0 )
-        {
-            newSelected = newSelected.concat(
-                selected.slice(0, selectedIndex),
-                selected.slice(selectedIndex + 1)
-            );
-        }
-
-        this.setState({selected: newSelected});
-    };
-
-    handleChangePage = (event, page) => {
-        this.setState({page});
-    };
-
-    handleChangeRowsPerPage = event => {
-        this.setState({rowsPerPage: event.target.value});
-    };
-
-    isSelected = id => this.state.selected.indexOf(id) !== -1;
-
-    render()
-    {
-        const {order, orderBy, selected, rowsPerPage, page, data} = this.state;
-
-        return (
-            <div className="w-full flex flex-col">
-
-                <FuseScrollbars className="flex-grow overflow-x-auto">
-
-                    <Table className="min-w-xl" aria-labelledby="tableTitle">
-
-                        <UsersTableHead
-                            numSelected={selected.length}
-                            order={order}
-                            orderBy={orderBy}
-                            onSelectAllClick={this.handleSelectAllClick}
-                            onRequestSort={this.handleRequestSort}
-                            rowCount={data.length}
-                        />
-
-                        <TableBody>
-                            {
-                                _.orderBy(data, [
-                                    (o) => {
-                                        switch ( orderBy )
-                                        {
-                                            case 'id':
-                                            {
-                                                return parseInt(o.uid, 10);
-                                            }
-                                            case 'name':
-                                            {
-                                                return o.name
-                                            }
-                                            case 'coins':
-                                            {
-                                                return parseInt(o.coins, 10);
-                                            }
-                                            case 'gifts':
-                                            {
-                                                return parseInt(o.gifts, 10);
-                                            }
-                                            case 'status':
-                                            {
-                                                return parseInt(o.status, 10);
-                                            }
-
-                                            default:
-                                            {
-                                                return o[orderBy];
-                                            }
-                                        }
-                                    }
-                                ], [order])
-                                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                    .map(n => {
-                                        const isSelected = this.isSelected(n.uid);
-                                        return (
-                                            <TableRow
-                                                className="h-64 cursor-pointer"
-                                                hover
-                                                role="checkbox"
-                                                aria-checked={isSelected}
-                                                tabIndex={-1}
-                                                key={n.uid}
-                                                selected={isSelected}
-                                                onClick={event => this.handleClick(n)}
-                                            >
-                                                <TableCell className="w-48" padding="checkbox">
-                                                    <Checkbox
-                                                        checked={isSelected}
-                                                        onClick={event => event.stopPropagation()}
-                                                        onChange={event => this.handleCheck(event, n.uid)}
-                                                    />
-                                                </TableCell>
-
-                                                <TableCell component="th" scope="row">
-                                                    {n.uid}
-                                                </TableCell>
-
-                                                <TableCell component="th" scope="row">
-                                                    {n.name}
-                                                </TableCell>
-
-                                                <TableCell component="th" scope="row">
-                                                    <span>$</span>
-                                                    {n.coins}
-                                                </TableCell>
-
-                                                <TableCell component="th" scope="row">
-                                                    {n.gifts}
-                                                </TableCell>
-
-                                                <TableCell component="th" scope="row">
-                                                    {n.status}
-                                                </TableCell>
-
-                                                <TableCell component="th" scope="row">
-                                                    {n.regtime}
-                                                </TableCell>
-
-                                            </TableRow>
-                                        );
-                                    })}
-                        </TableBody>
-                    </Table>
-                </FuseScrollbars>
-
-                <TablePagination
-                    component="div"
-                    count={data.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    backIconButtonProps={{
-                        'aria-label': 'Previous Page'
-                    }}
-                    nextIconButtonProps={{
-                        'aria-label': 'Next Page'
-                    }}
-                    onChangePage={this.handleChangePage}
-                    onChangeRowsPerPage={this.handleChangeRowsPerPage}
-                />
+        if (this.state.loading) return (
+            <div className={classes.root}>
+                <CircularProgress size={68} className={classes.fabProgress}/>
             </div>
         );
-    }
+
+
+        return <SortableTables
+            columns={columns}
+            // selectable
+            order={"asc"}
+            orderBy={columns[0].id}
+            rowsPerPage={100}
+            rawData={this.state.users}
+            url={`${ROUTEPREFIX}/users`}
+            switch={
+                (orderBy, o) => {
+                    switch ( orderBy )
+                    {
+                        case 'id':return parseInt(o.uid, 10);
+                        case 'name': return o.name;
+                        case 'coins': return parseInt(o.coins, 10);
+                        case 'gifts': return parseInt(o.gifts, 10);
+                        case 'status': return parseInt(o.status, 10);
+                        default: return o[orderBy];
+                    }
+                }
+            }
+
+
+        />
+    };
+
+
 }
 
 
-
-
-
-function mapStateToProps({auth, flutterComic})
+function mapStateToProps({auth})
 {
     return {
         manager     : auth.user,
-        searchText  : flutterComic.search.text,
     }
 }
 

@@ -9,12 +9,12 @@ const fuseSettingsConfig = {
                 position: 'left'
             },
             toolbar: {
-                display : true,
+                display : false,
                 style   : 'fixed',
                 position: 'below'
             },
             footer : {
-                display : true,
+                display : false,
                 style   : 'fixed',
                 position: 'below'
             },
