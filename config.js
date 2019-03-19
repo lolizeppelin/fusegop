@@ -23,7 +23,7 @@ const GOPCONFIG = {
         token: null,
     },
 
-    endpoints: ['fluttercomic'],
+    endpoints: ['fluttercomic', 'webadmin'],
 
     gogamechen1: {
 
@@ -44,6 +44,11 @@ const GOPCONFIG = {
         NAME: 'fluttercomic',
         CDNHOST: '172.17.0.3:7998',
         CDNPATH: 'cdn',
+    },
+
+    webadmin: {
+        ROUTEPREFIX: 'webadmin',
+        NAME: 'webadmin',
     }
 
 };
