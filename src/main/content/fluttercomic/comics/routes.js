@@ -1,9 +1,6 @@
-import {authRoles} from 'auth';
-
 import {FuseLoadable} from '@fuse';
 
-
-
+import authRoles from "../authRoles";
 import {ROUTEPREFIX} from "../config";
 
 const ComicRoute = {

@@ -1,9 +1,8 @@
-import {authRoles} from 'auth';
-
 import {FuseLoadable} from '@fuse';
 
 
 import {ROUTEPREFIX} from "../config";
+import authRoles from "../authRoles";
 
 const OrderRoute = {
     auth    : authRoles.fluttercomic0manager,

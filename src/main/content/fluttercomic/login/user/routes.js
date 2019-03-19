@@ -1,6 +1,6 @@
-import {authRoles} from 'auth';
 import User from './login';
 import {ROUTEPREFIX} from "../../config";
+import authRoles from "../../authRoles";
 
  const Routes = {
      settings: {
