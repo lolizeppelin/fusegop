@@ -68,6 +68,7 @@ class Login extends Component {
     onSubmit = (model) => {
         this.props.submitLogin(managerLogin, model, Login.analyzer, () => {
             this.props.setNavigation(FlutterComicManagerNavigationConfig);
+            // TODO path修改,从FlutterComicManagerNavigationConfig中获取users的路径
             this.props.history.push('/gop/fluttercomic/users');
         });
 
