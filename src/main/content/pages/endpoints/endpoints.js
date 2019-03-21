@@ -30,9 +30,6 @@ const styles = theme => ({
 
 
 
-const ROUTEPREFIX = `${GOPCONFIG.BASEPATH}/${GOPCONFIG.fluttercomic.ROUTEPREFIX}`;
-
-
 
 class EndpointPage extends Component {
 
@@ -40,6 +37,17 @@ class EndpointPage extends Component {
     state = {
         endpoint      : this.props.match.params.endpoint,
     };
+
+
+    componentDidUpdate(prevProps, prevState)
+    {
+        if (this.props.match.params.endpoint !== prevProps.match.params.endpoint) {
+            this.setState(
+                {endpoint: this.props.match.params.endpoint}
+            )
+        }
+
+    }
 
 
     render()
@@ -63,7 +71,12 @@ class EndpointPage extends Component {
             )
         }
 
-        const prefix = `${GOPCONFIG.BASEPATH}/${GOPCONFIG[this.state.endpoint].ROUTEPREFIX}`;
+        const CURCONF = GOPCONFIG[this.state.endpoint];
+
+        const prefix = `${GOPCONFIG.BASEPATH}/${CURCONF.ROUTEPREFIX}`;
+        const loginM = CURCONF.MANAGERLOGIN ? `${prefix}${CURCONF.MANAGERLOGIN}` : null;
+        const loginU = CURCONF.USERLOGIN ? `${prefix}${CURCONF.USERLOGIN}` : null;
+
 
         return (
             <div className={classNames(classes.root, "flex flex-grow flex-no-shrink flex-col items-center")}>
@@ -80,26 +93,38 @@ class EndpointPage extends Component {
                             duration : 1000
                         }}
                     >
-                        <div className="w-224 h-224 p-16" key={this.state.endpoint + '-manager'}>
-                            <Link
-                                to={`${prefix}/managers/login`}
-                                className={classNames(classes.board, "flex flex-col items-center justify-center w-full h-full rounded py-24")}
-                                role="button"
-                            >
-                                <Icon className="text-56">account_circle</Icon>
-                                <Typography className="text-16 font-300 text-center pt-16 px-32" color="inherit">管理员</Typography>
-                            </Link>
-                        </div>
-                        <div className="w-224 h-224 p-16" key={this.state.endpoint + '-client'}>
-                            <Link
-                                to={`${prefix}/users/login`}
-                                className={classNames(classes.board, "flex flex-col items-center justify-center w-full h-full rounded py-24")}
-                                role="button"
-                            >
-                                <Icon className="text-56">people</Icon>
-                                <Typography className="text-16 font-300 text-center pt-16 px-32" color="inherit">普通用户</Typography>
-                            </Link>
-                        </div>
+
+                        {
+                            loginM && (
+                                <div className="w-224 h-224 p-16" key={this.state.endpoint + '-manager'}>
+                                    <Link
+                                        to={`${prefix}/managers/login`}
+                                        className={classNames(classes.board, "flex flex-col items-center justify-center w-full h-full rounded py-24")}
+                                        role="button"
+                                    >
+                                        <Icon className="text-56">account_circle</Icon>
+                                        <Typography className="text-16 font-300 text-center pt-16 px-32" color="inherit">管理员</Typography>
+                                    </Link>
+                                </div>
+                            )
+                        }
+
+
+                        {
+                            loginU && (
+                                <div className="w-224 h-224 p-16" key={this.state.endpoint + '-client'}>
+                                    <Link
+                                        to={`${prefix}/users/login`}
+                                        className={classNames(classes.board, "flex flex-col items-center justify-center w-full h-full rounded py-24")}
+                                        role="button"
+                                    >
+                                        <Icon className="text-56">people</Icon>
+                                        <Typography className="text-16 font-300 text-center pt-16 px-32" color="inherit">普通用户</Typography>
+                                    </Link>
+                                </div>
+                            )
+                        }
+
                     </FuseAnimateGroup>
                 </div>
             </div>
