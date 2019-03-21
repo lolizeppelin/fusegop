@@ -8,7 +8,7 @@ function request(url, method = 'GET', token = null, body = null,
                  jsonlint = false) {
     headers = Object.assign(APIHEAD, headers);
     if (token) headers[[TOKENHEAD]] = token;
-    if (fernet) headers[[FERNETHEAD]] = 'yes';
+    // if (fernet) headers[[FERNETHEAD]] = 'yes';
     const config = {url,
         method, headers, data: body, timeout,
     };

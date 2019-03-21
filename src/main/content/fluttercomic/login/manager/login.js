@@ -14,6 +14,7 @@ import connect from 'react-redux/es/connect/connect';
 import {managerLogin}  from '../http';
 
 import {FlutterComicManagerNavigationConfig} from './navigation'
+import {ROUTEPREFIX} from "../../config";
 
 const styles = () => ({
     root : {
@@ -69,7 +70,7 @@ class Login extends Component {
         this.props.submitLogin(managerLogin, model, Login.analyzer, () => {
             this.props.setNavigation(FlutterComicManagerNavigationConfig);
             // TODO path修改,从FlutterComicManagerNavigationConfig中获取users的路径
-            this.props.history.push('/gop/fluttercomic/users');
+            this.props.history.push(`${ROUTEPREFIX}/users`);
         });
 
     };

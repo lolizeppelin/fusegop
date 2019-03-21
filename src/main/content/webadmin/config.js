@@ -12,10 +12,6 @@ const PRIVATE = 'private';
 
 const TYPES = {'private': 'v1.0', 'public': 'n1.0'};
 
-const users_path = `${GOPCONFIG.webadmin.NAME}/{type}/users`;
-const user_path = `${GOPCONFIG.webadmin.NAME}/{type}/users/{uid}`;
-const user_path_ex = `${GOPCONFIG.webadmin.NAME}/{type}/users/{uid}/{ext}`;
-
 
 const logs_path = `${GOPCONFIG.webadmin.NAME}/{type}/logs`;
 const log_path = `${GOPCONFIG.webadmin.NAME}/{type}/logs/{id}`;
@@ -31,9 +27,8 @@ function urlPrepare(type, key, target = null) {
 
     let path = `/${TYPES[type]}`;
     switch (key) {
-        case 'users': {
-            path = `${path}/${users_path.cformat({type})}`;
-            if (target && target.uid) path = `${path}/${target.uid}`;
+        case 'login': {
+            path = `${GOPCONFIG.API.login}/${target.name}`;
             break;
         }
         case 'logs': {

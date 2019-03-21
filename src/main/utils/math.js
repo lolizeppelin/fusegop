@@ -36,4 +36,4 @@ export function isInt(str) {
  */
 
 
-export { exponential, isPint, isInt };
+// export { exponential, isPint, isInt };

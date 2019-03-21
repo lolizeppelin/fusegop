@@ -14,6 +14,7 @@ import connect from 'react-redux/es/connect/connect';
 import {webadminLogin}  from './http';
 
 import {WebAdminNavigationConfig} from './navigation'
+import {ROUTEPREFIX} from "../config";
 
 const styles = () => ({
     root : {
@@ -43,8 +44,8 @@ class Login extends Component {
         return  {
             role    : "webadmin",
 
-            id      : userinfo.uid,
-            name    : userinfo.name,
+            id      : userinfo.id,
+            name    : userinfo.username,
             token   : userinfo.token,
 
             from    : 'uuid',
@@ -68,7 +69,7 @@ class Login extends Component {
     onSubmit = (model) => {
         this.props.submitLogin(webadminLogin, model, Login.analyzer, () => {
             this.props.setNavigation(WebAdminNavigationConfig);
-            this.props.history.push('/gop/webadmin/logs');
+            this.props.history.push(`${ROUTEPREFIX}/welcome`);
         });
 
     };

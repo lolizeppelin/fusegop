@@ -1,10 +1,12 @@
 import request from '../http'
 
-import {urlPrepare, PUBLIC, PRIVATE} from '../config';
+import {urlPrepare, PUBLIC} from '../config';
 
 function webadminLogin(name, passwd, successCallback, failCallback) {
-    const url = urlPrepare(PUBLIC, 'managers', { mid: name, ext: 'login'});
-    const body = { passwd: passwd };
+    const url = urlPrepare(PUBLIC, 'login', { name: name});
+
+
+    const body = { password: passwd };
     return request(url, 'POST', null, body, null, false)
         .then((response) => {
             const result = response.data;
