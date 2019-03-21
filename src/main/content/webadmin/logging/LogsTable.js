@@ -7,9 +7,11 @@ import {ROUTEPREFIX} from "../config";
 
 import { indexLogs } from './http'
 
+import * as FuseActions from "store/actions";
+
 import SortableTables from '../components/sortAbleTables';
 import green from "@material-ui/core/colors/green";
-import {bindActionCreators} from "redux/index";
+import {bindActionCreators} from "redux";
 import connect from "react-redux/es/connect/connect";
 
 

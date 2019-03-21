@@ -27,7 +27,7 @@ import authRoles from "../../authRoles";
     // auth    : authRoles.onlyGuest,
     routes  : [
         {
-            path     : `${ROUTEPREFIX}/user/login`,
+            path     : `${ROUTEPREFIX}/ulogin`,
             component: User
         }
     ]

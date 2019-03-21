@@ -24,3 +24,9 @@
 # 使用方法
 
   将当前代码覆盖到Fuse框架代码中
+
+# 增加模块修改
+
+1. src\fuse-configs\fuseRoutesConfig.js  添加路由
+2. config.js 增加endpoint配置
+3. src\auth\store\reducers\user.reducer.js  修改默认用户状态

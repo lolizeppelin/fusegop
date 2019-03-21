@@ -1,3 +1,4 @@
+import {FuseLoadable} from '@fuse';
 import LoginRoutes from './login/routes';
 import UserRoute from './keyword/routes';
 import LogingRoute from './logging/routes';
@@ -21,7 +22,7 @@ const WelcomRoute = {
 
 const routes = [
     // ...StatisticsRoutes,
-    ...LoginRoutes,
+    LoginRoutes,
     UserRoute,
     LogingRoute,
     WelcomRoute,

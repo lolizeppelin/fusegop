@@ -51,8 +51,7 @@ const GOPCONFIG = {
 
     webadmin: {
         ROUTEPREFIX: 'webadmin',
-        USERLOGIN: '/login',
-        MANAGERLOGIN: '/login',
+        MANAGERLOGIN: '/managers/login',
         NAME: 'webadmin',
     }
 

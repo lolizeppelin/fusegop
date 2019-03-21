@@ -74,8 +74,8 @@ class EndpointPage extends Component {
         const CURCONF = GOPCONFIG[this.state.endpoint];
 
         const prefix = `${GOPCONFIG.BASEPATH}/${CURCONF.ROUTEPREFIX}`;
-        const loginM = CURCONF.MANAGERLOGIN ? `${prefix}${CURCONF.MANAGERLOGIN}` : null;
-        const loginU = CURCONF.USERLOGIN ? `${prefix}${CURCONF.USERLOGIN}` : null;
+        const loginM = CURCONF.MANAGERLOGIN ? CURCONF.MANAGERLOGIN : null;
+        const loginU = CURCONF.USERLOGIN ? CURCONF.USERLOGIN : null;
 
 
         return (
@@ -98,7 +98,7 @@ class EndpointPage extends Component {
                             loginM && (
                                 <div className="w-224 h-224 p-16" key={this.state.endpoint + '-manager'}>
                                     <Link
-                                        to={`${prefix}/managers/login`}
+                                        to={`${prefix}${loginM}`}
                                         className={classNames(classes.board, "flex flex-col items-center justify-center w-full h-full rounded py-24")}
                                         role="button"
                                     >
@@ -114,7 +114,7 @@ class EndpointPage extends Component {
                             loginU && (
                                 <div className="w-224 h-224 p-16" key={this.state.endpoint + '-client'}>
                                     <Link
-                                        to={`${prefix}/users/login`}
+                                        to={`${prefix}${loginU}`}
                                         className={classNames(classes.board, "flex flex-col items-center justify-center w-full h-full rounded py-24")}
                                         role="button"
                                     >

@@ -3,11 +3,14 @@ import {Redirect} from 'react-router-dom';
 import {FuseUtils} from '@fuse/index';
 
 import FlutterComicRoutes from 'main/content/fluttercomic/routes';
+import WebadminRoutes from 'main/content/webadmin/routes';
 import PageRoutes from 'main/content/pages/routes';
 
 const routeConfigs = [
     ...FlutterComicRoutes,
+    ...WebadminRoutes,
     ...PageRoutes,
+
 ];
 
 

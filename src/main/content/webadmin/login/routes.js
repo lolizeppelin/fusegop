@@ -28,7 +28,7 @@ import authRoles from "../authRoles";
     auth    : authRoles.onlyGuest,
     routes  : [
         {
-            path     : `${ROUTEPREFIX}/manager/login`,
+            path     : `${ROUTEPREFIX}/login`,
             component: FuseLoadable({loader: () => import('./login')})
         }
     ]

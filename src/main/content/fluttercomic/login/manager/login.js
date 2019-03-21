@@ -114,7 +114,7 @@ class Login extends Component {
                     </FuseAnimate>
 
                     <FuseAnimate animation="transition.slideUpIn" delay={300}>
-                        <Typography variant="display2" color="inherit" className="font-light">
+                        <Typography variant="h3" color="inherit" className="font-light">
                             深宅漫画管理后台
                         </Typography>
                     </FuseAnimate>
@@ -167,7 +167,7 @@ class Login extends Component {
 
                                         <Button
                                             type="submit"
-                                            variant="raised"
+                                            variant="contained"
                                             color="primary"
                                             className="w-full mx-auto mt-16 normal-case"
                                             aria-label="LOG IN"

@@ -2,14 +2,14 @@ import React, {Component} from 'react';
 import {withStyles, CircularProgress} from '@material-ui/core';
 import {withRouter} from 'react-router-dom';
 import {FuseUtils, FuseAnimate} from '@fuse';
-
+import * as FuseActions from "store/actions";
 import {ROUTEPREFIX} from "../config";
 
-import { indexLogs } from './http'
+import { indexKeyWords } from './http'
 
 import SortableTables from '../components/sortAbleTables';
 import green from "@material-ui/core/colors/green";
-import {bindActionCreators} from "redux/index";
+import {bindActionCreators} from "redux";
 import connect from "react-redux/es/connect/connect";
 
 
