@@ -5,7 +5,7 @@ import {withRouter} from 'react-router-dom';
 import {FuseUtils, FuseAnimate} from '@fuse';
 import connect from 'react-redux/es/connect/connect';
 
-import * as FlutterComicActions from "store/actions";
+import * as FuseActions from "store/actions";
 
 import {ROUTEPREFIX} from "../../config";
 
@@ -151,7 +151,6 @@ class ComicsTable extends Component {
         />
     };
 
-
 }
 
 
@@ -167,7 +166,7 @@ function mapStateToProps({flutterComic})
 function mapDispatchToProps(dispatch)
 {
     return bindActionCreators({
-        showMessage: FlutterComicActions.showMessage,
+        showMessage: FuseActions.showMessage,
     }, dispatch);
 }
 

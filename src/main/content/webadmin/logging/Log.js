@@ -59,6 +59,10 @@ class LogEntity extends Component {
     }
 
 
+    handleChangeTab = (event, tabValue) => {
+        this.setState({tabValue});
+    };
+
     flush = () => {
         const user = this.props.user;
         logsRequest.showLog(this.state.id, user.token,
@@ -106,7 +110,7 @@ class LogEntity extends Component {
 
                                     <FuseAnimate animation="transition.slideLeftIn" delay={300}>
                                         <Typography className="truncate">
-                                            {'日志ID: ' + logentity.id}
+                                            {`日志IP: ${this.state.id}`}
                                         </Typography>
                                     </FuseAnimate>
 
@@ -146,30 +150,22 @@ class LogEntity extends Component {
                                             <table className="simple mb-16">
                                                 <thead>
                                                 <tr>
-                                                    <th>漫画</th>
-                                                    <th>漫画ID</th>
-                                                    <th>作者</th>
-                                                    <th>类型</th>
-                                                    <th>地区</th>
-                                                    <th>收费章节</th>
-                                                    <th>最后章节</th>
-                                                    <th>最后更新</th>
+                                                    <th>IP</th>
+                                                    <th>时间</th>
+                                                    <th>路径</th>
+                                                    <th>HTTP返回码</th>
+                                                    <th>大小</th>
+                                                    <th>域名</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 <tr>
-                                                    <td>
-                                                        <div className="flex items-center">
-                                                            <Typography className="truncate">
-                                                                <span>日志内容</span>
-                                                            </Typography>
-                                                        </div>
-                                                    </td>
-                                                    <td><Typography className="truncate">{logentity.author}</Typography></td>
-                                                    <td><Typography className="truncate">{logentity.type}</Typography></td>
-                                                    <td><Typography className="truncate">{logentity.region}</Typography></td>
-                                                    <td><Typography className="truncate">{logentity.point}</Typography></td>
-                                                    <td><Typography className="truncate">{logentity.last}</Typography></td>
+                                                    <td><Typography className="truncate">{logentity.ip}</Typography></td>
+                                                    <td><Typography className="truncate">{new Date(logentity.atime*1000).toLocaleString(('zh-CN'), { hour12: false })}</Typography></td>
+                                                    <td><Typography className="truncate">{logentity.path}</Typography></td>
+                                                    <td><Typography className="truncate">{logentity.status}</Typography></td>
+                                                    <td><Typography className="truncate">{logentity.size}</Typography></td>
+                                                    <td><Typography className="truncate">{logentity.host}</Typography></td>
                                                 </tr>
                                                 </tbody>
                                             </table>
@@ -182,36 +178,11 @@ class LogEntity extends Component {
                                     <div className="pb-48">
                                         <div className="pb-16 flex items-center">
                                             <Icon className="mr-16" color="action">account_circle</Icon>
-                                            <Typography className="h2" color="textSecondary">日志信息</Typography>
+                                            <Typography className="h2" color="textSecondary">客户端信息</Typography>
                                         </div>
 
                                         <div className="mb-24">
-                                            <table className="simple mb-16">
-                                                <thead>
-                                                <tr>
-                                                    <th>漫画</th>
-                                                    <th>漫画ID</th>
-                                                    <th>作者</th>
-                                                    <th>类型</th>
-                                                    <th>地区</th>
-                                                    <th>收费章节</th>
-                                                    <th>最后章节</th>
-                                                    <th>最后更新</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <div className="flex items-center">
-                                                            <Typography className="truncate">
-                                                                <span>客户端浏览器</span>
-                                                            </Typography>
-                                                        </div>
-                                                    </td>
-                                                    <td><span className="truncate">{logentity.lastup}</span></td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
+                                            <Typography className="h2" color="textSecondary">{logentity.client}</Typography>
                                         </div>
                                     </div>
                                 </div>

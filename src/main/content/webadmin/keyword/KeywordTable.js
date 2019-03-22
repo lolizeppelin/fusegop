@@ -29,14 +29,14 @@ const styles = theme => ({
 
 const columns = [
     {
-        id            : 'id',
-        numeric       : true,
+        id            : 'kid',
+        numeric       : false,
         disablePadding: true,
         label         : '主键',
         sort          : false
     },
     {
-        id            : 'key',
+        id            : 'value',
         numeric       : false,
         disablePadding: false,
         label         : '关键字',
@@ -59,6 +59,7 @@ class KeywordTable extends Component {
         indexKeyWords(
             this.props.user.token,
             (result) => {
+                console.log(result.data);
                 this.setState({ keywords: result.data, loading: false })
             },
             (error) => {
@@ -86,6 +87,7 @@ class KeywordTable extends Component {
             rowsPerPage={100}
             rawData={this.state.keywords}
             url={`${ROUTEPREFIX}/keywords`}
+            enableclick={false}
             switch={
                 (orderBy, o) => {
                     return o[orderBy];

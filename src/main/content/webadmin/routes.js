@@ -4,6 +4,7 @@ import UserRoute from './keyword/routes';
 import LogingRoute from './logging/routes';
 import {ROUTEPREFIX} from "./config";
 import authRoles from "./authRoles";
+import reducer from './store/reducers';
 
 
 

@@ -14,6 +14,8 @@ import green from "@material-ui/core/colors/green";
 import {bindActionCreators} from "redux";
 import connect from "react-redux/es/connect/connect";
 
+import * as wbActions from '../store/actions'
+
 
 const styles = theme => ({
     root          : {
@@ -38,7 +40,7 @@ const columns = [
         sort          : false
     },
     {
-        id            : 'IP',
+        id            : 'ip',
         numeric       : false,
         disablePadding: false,
         label         : '访问IP',
@@ -49,7 +51,8 @@ const columns = [
         numeric       : false,
         disablePadding: false,
         label         : '时间',
-        sort          : false
+        sort          : false,
+        view          : (v) => new Date(v*1000).toLocaleString(('zh-CN'), { hour12: false })
     },
     {
         id            : 'path',
@@ -57,72 +60,26 @@ const columns = [
         disablePadding: false,
         label         : '接口',
         sort          : false
-    },
-    {
-        id            : 'code',
-        numeric       : false,
-        disablePadding: false,
-        label         : 'HTTP码',
-        sort          : false
-    },
-    {
-        id            : '大小',
-        numeric       : true,
-        disablePadding: false,
-        label         : '返回大小',
-        sort          : false
-    },
-    {
-        id            : 'host',
-        numeric       : true,
-        disablePadding: false,
-        label         : '域名',
-        sort          : false
-    },
+    }
 ];
 
 
 class LogsTable extends Component {
-    state = {
-        logs       : [],
-        loading      : true,
-    };
 
 
-
-    componentDidMount()
-    {
-        // this.props.getOrders();
-        indexLogs(
-            this.props.user.token,
-            (result) => {
-                this.setState({ logs: result.data, loading: false })
-            },
-            (error) => {
-                this.setState({ logs: [], loading:false })
-            });
-    }
 
 
     render() {
 
-        const {classes} = this.props;
-
-        if (this.state.loading) return (
-            <div className={classes.root}>
-                <CircularProgress size={68} className={classes.fabProgress}/>
-            </div>
-        );
-
 
         return <SortableTables
             columns={columns}
-            // selectable
-            order={"asc"}
+            order={"desc"}
             orderBy={columns[0].id}
             rowsPerPage={100}
-            rawData={this.state.logs}
+            rawData={this.props.logs}
             url={`${ROUTEPREFIX}/logs`}
+            enableclick
             switch={
                 (orderBy, o) => {
                     return o[orderBy];
@@ -136,22 +93,6 @@ class LogsTable extends Component {
 }
 
 
+// export default withStyles(styles, {withTheme: true})(withRouter(connect(mapStateToProps, mapDispatchToProps)(LogsTable)));
 
-function mapStateToProps({auth})
-{
-    return {
-        user: auth.user
-    }
-}
-
-
-function mapDispatchToProps(dispatch)
-{
-    return bindActionCreators({
-        showMessage: FuseActions.showMessage,
-    }, dispatch);
-}
-
-
-
-export default withStyles(styles, {withTheme: true})(withRouter(connect(mapStateToProps, mapDispatchToProps)(LogsTable)));
+export default LogsTable

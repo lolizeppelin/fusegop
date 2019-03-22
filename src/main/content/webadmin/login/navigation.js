@@ -17,7 +17,7 @@ export const WebAdminNavigationConfig = [
                 'title': '关键字管理',
                 'type' : 'item',
                 'icon' : 'photo',
-                'url'  : '/gop/webadmin/keyword',
+                'url'  : '/gop/webadmin/keywords',
             },
         ]
     },

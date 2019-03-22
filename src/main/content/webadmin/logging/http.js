@@ -14,9 +14,10 @@ function showLog(id, token, successCallback, failCallback) {
 }
 
 
-function indexLogs(token, successCallback, failCallback) {
+function indexLogs(token, post, limit, timeline,
+                   successCallback, failCallback) {
     const url = urlPrepare(PRIVATE, 'logs');
-    return request(url, 'GET', token)
+    return request(url, 'GET', token, { post, limit, timeline })
         .then((response) => {
             const result = response.data;
             if (result.resultcode !== 0) throw Error(result.result);

@@ -12,15 +12,12 @@ import green from "@material-ui/core/colors/green";
 const styles = theme => ({
     root          : {
         display   : 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
+        position      : 'absolute',
+        top           : 30,
+        left          : 50,
+        width         : 600,
     },
-    fabProgress   : {
-        color   : green[500],
-        position: 'absolute',
-        top     : '50%',
-        left    : '50%',
-        zIndex  : 1
-    }
 });
 
 class Keywords extends Component {
@@ -28,13 +25,16 @@ class Keywords extends Component {
 
     render()
     {
+        const{ classes } = this.props;
         return (
             <FusePageSimple
                 classes={{
                     content: "flex"
                 }}
                 content={
-                    <KeywordTable />
+                    <div className={classes.root}>
+                        <KeywordTable />
+                    </div>
                 }
                 innerScroll
             />

@@ -67,10 +67,14 @@ class Login extends Component {
     };
 
     onSubmit = (model) => {
-        this.props.submitLogin(webadminLogin, model, Login.analyzer, () => {
-            this.props.setNavigation(WebAdminNavigationConfig);
-            this.props.history.push(`${ROUTEPREFIX}/welcome`);
-        });
+        this.props.submitLogin(webadminLogin, model, Login.analyzer,
+            () => {
+                this.props.setNavigation(WebAdminNavigationConfig);
+                this.props.history.push(`${ROUTEPREFIX}/welcome`)},
+            (error) => {
+                console.log(error);
+                this.props.showMessage({ message: error.message, autoHideDuration: 3000 })}
+            );
 
     };
 
@@ -205,7 +209,8 @@ function mapDispatchToProps(dispatch)
 {
     return bindActionCreators({
         submitLogin: Actions.gopLogin,
-        setNavigation: FuseActions.setNavigation
+        setNavigation: FuseActions.setNavigation,
+        showMessage: FuseActions.showMessage,
     }, dispatch);
 }
 

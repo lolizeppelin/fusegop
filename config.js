@@ -29,7 +29,7 @@ const GOPCONFIG = {
 
         ROUTEPREFIX: 'gogamechen1',
         NAME: 'gogamechen1',
-        MANAGERLOGIN: '/managers/login',
+        MANAGERLOGIN: '/login',
         PHPAPI: {
             packages: '/notify_package.php',
             areas: '/notify_areas.php',
@@ -43,15 +43,15 @@ const GOPCONFIG = {
     fluttercomic: {
         ROUTEPREFIX: 'fluttercomic',
         NAME: 'fluttercomic',
-        USERLOGIN: '/users/login',
-        MANAGERLOGIN: '/managers/login',
+        USERLOGIN: '/ulogin',
+        MANAGERLOGIN: '/mlogin',
         CDNHOST: '172.17.0.3:7998',
         CDNPATH: 'cdn',
     },
 
     webadmin: {
         ROUTEPREFIX: 'webadmin',
-        MANAGERLOGIN: '/managers/login',
+        MANAGERLOGIN: '/login',
         NAME: 'webadmin',
     }
 

@@ -13,7 +13,7 @@ function webadminLogin(name, passwd, successCallback, failCallback) {
             if (result.resultcode !== 0) throw Error(result.result);
             successCallback(result);
         })
-        .catch((error) => { failCallback(error.message); });
+        .catch((error) => { failCallback(error); });
 }
 
 

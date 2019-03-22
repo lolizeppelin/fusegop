@@ -28,6 +28,21 @@ class SortableTables extends Component {
     };
 
 
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.rawData !== prevProps.rawData) {
+            this.setState( {
+                order       : this.props.order,
+                orderBy     : this.props.orderBy,
+                selected    : [],
+                data        : Object.assign(this.props.rawData, []),
+                page        : 0,
+                rowsPerPage : this.props.rowsPerPage,
+                primaryKey  : this.props.columns[0].id,
+            })
+
+        }
+    }
+
 
     handleRequestSort = (event, property) => {
 
@@ -56,7 +71,9 @@ class SortableTables extends Component {
     };
 
     handleClick = (item) => {
-        this.props.history.push(`${this.props.url}/${item[this.state.primaryKey]}`);
+        if (this.props.enableclick) {
+            this.props.history.push(`${this.props.url}/${item[this.state.primaryKey]}`);
+        }
     };
 
     handleCheck = (event, id) => {
@@ -126,7 +143,7 @@ class SortableTables extends Component {
                                         const isSelected = this.isSelected(n[this.state.primaryKey]);
                                         return (
                                             <TableRow
-                                                className="h-64 cursor-pointer"
+                                                className="h-32 cursor-pointer"
                                                 hover
                                                 role="checkbox"
                                                 aria-checked={isSelected}
@@ -184,4 +201,4 @@ class SortableTables extends Component {
 }
 
 
-export default withStyles(styles, {withTheme: true})(SortableTables);
+export default withStyles(styles, {withTheme: true})(withRouter(SortableTables));
