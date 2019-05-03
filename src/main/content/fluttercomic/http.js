@@ -13,6 +13,11 @@ function request(url, method = 'GET', token = null, body = null,
         method, headers, data: body, timeout,
     };
 
+    if (method.toLowerCase() === 'get' && body !== null) {
+        config.params = { _method: 'GET' };
+        config.method = 'POST';
+    }
+
     if (jsonlint) {
         config.transformResponse =
             [function (data) {
